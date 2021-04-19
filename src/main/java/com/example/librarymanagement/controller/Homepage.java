@@ -1,6 +1,7 @@
 package com.example.librarymanagement.controller;
 
 import com.example.librarymanagement.Entity.Books;
+import com.example.librarymanagement.exceptions.BookNotFoundException;
 import com.example.librarymanagement.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class Homepage {
         Books theBook = theBookservice.findById(bookId);
 
         if (theBook == null) {
-            throw new RuntimeException("Book id  is not found - " +bookId );
+            throw new BookNotFoundException("Book id not found "+bookId);
         }
 
         return theBook;
@@ -62,7 +63,7 @@ public class Homepage {
         // throw exception if null
 
         if (tempBook== null) {
-            throw new RuntimeException("Book id not found - " + bookId);
+            throw new BookNotFoundException("Book id not found "+bookId);
         }
 
         theBookservice.deleteById(bookId);
